@@ -1,0 +1,15 @@
+{
+  "name": "files-sync",
+  "version": "1.0.0",
+  "main": "watcher.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "node watcher.js"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "chokidar": "^3.5.3",
+    "dotenv": "^16.3.1"
+  }
+}
