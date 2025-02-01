@@ -74,18 +74,18 @@ console.log(chalk.yellow('Ignoring the following patterns:'), ignore);
 function runSync() {
     console.log(chalk.yellow('Starting file synchronization...'));
 
-    const psCommand = `
-        $ErrorActionPreference = 'Continue';
-        $VerbosePreference = 'Continue';
-        try {
-            & "${path.join(__dirname, 'sync.ps1')}" -sourceDir "${sourceDir}" -baseDestination "${targetDir}" ${isFullCopy ? '-FullCopy' : ''};
-            if ($LASTEXITCODE -gt 3) { throw "Robocopy failed with exit code $LASTEXITCODE" }
-        } catch {
-            Write-Error $_;
-            exit 1;
-        }
-    `;
-
+    // const psCommand = `
+    //     $ErrorActionPreference = 'Continue';
+    //     $VerbosePreference = 'Continue';
+    //     try {
+    //         & "${path.join(__dirname, 'sync.ps1')}" -sourceDir "${sourceDir}" -baseDestination "${targetDir}" ${isFullCopy ? '-FullCopy' : ''};
+    //         if ($LASTEXITCODE -gt 3) { throw "Robocopy failed with exit code $LASTEXITCODE" }
+    //     } catch {
+    //         Write-Error $_;
+    //         exit 1;
+    //     }
+    // `;
+    const psCommand = `${path.join(__dirname, 'sync.ps1')}" -sourceDir "${sourceDir}" -baseDestination "${targetDir}" ${isFullCopy ? '-FullCopy' : ''}`
     const command = `powershell -Command "${psCommand}"`;
 
     exec(command, { cwd: __dirname }, (error, stdout, stderr) => {
@@ -128,7 +128,7 @@ const watcher = chokidar.watch(sourceDir, {
     persistent: true,
     ignoreInitial: true,
     usePolling: true,  // 使用轮询方式
-    interval: 1000, 
+    interval: 1000,
     awaitWriteFinish: {
         stabilityThreshold: 500,
         pollInterval: 100

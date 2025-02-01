@@ -28,7 +28,8 @@ Set-ExecutionPolicy RemoteSigned
 - map the network path as a new drive in hyper-V (like Z:\)
 > cause the chokidar couldn't watch network path(SMB), so the chokidar is also set to polling mode
 
-**DO NOT use network path like "\\tsclient\C\XXX"**
+DO NOT use network path like "\\tsclient\C\XXX"
+even though robocopy can work with network path, but chokidar couldn't watch the network path
 
 ## file watcher
 it get params from .env file and pass them to ps script
@@ -61,6 +62,10 @@ clone this repo into hyper-V, and write the sourceDir and targetDir in .env file
 
 ```bash
 yarn start
+```
+or
+```bash
+node watcher.js
 ```
 
 ## final backup solution
